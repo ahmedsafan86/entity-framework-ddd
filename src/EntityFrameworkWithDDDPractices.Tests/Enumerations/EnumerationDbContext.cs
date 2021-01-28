@@ -44,10 +44,10 @@ namespace EntityFrameworkWithDDDPractices.Tests.Enumerations
 
         private void BeforeSaveChanges()
         {
-          ChangeTracker.Entries()
-            .Where(entry=>entry.Metadata.ClrType.IsAssignableTo(typeof(Enumeration)))
-            .ToList()
-            .ForEach(Entry=>Entry.State = EntityState.Modified);
+            ChangeTracker.Entries()
+                .Where(entry => entry.Metadata.ClrType.IsAssignableTo(typeof(Enumeration)))
+                .ToList()
+                .ForEach(Entry => Entry.State = EntityState.Unchanged);
         }
     }
 
