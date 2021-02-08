@@ -1,2 +1,11 @@
 {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.autoIndent": "advanced",
+    "editor.wrappingIndent": "indent",
+    "editor.tabSize": 4,
+    "editor.fontFamily": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "dotnet-test-explorer.testProjectPath": "**/*.sln",
+    "cSpell.allowCompoundWords": true,
+    "omnisharp.enableImportCompletion": true
 }

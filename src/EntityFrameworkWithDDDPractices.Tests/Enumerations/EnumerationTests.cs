@@ -7,19 +7,14 @@ namespace EntityFrameworkWithDDDPractices.Tests.Enumerations
 {
     public class EnumerationTests
     {
-        private readonly ServiceProvider _serviceProvider;
-
-        public EnumerationTests()
-        {
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.AddDbContext();
-            _serviceProvider = serviceCollection.BuildServiceProvider();
-        }
 
         [Fact]
         public void UseEnumerationTypes()
         {
-            using (var scope1 = _serviceProvider.CreateScope())
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddDbContext();
+            using var serviceProvider = serviceCollection.BuildServiceProvider();
+            using (var scope1 = serviceProvider.CreateScope())
             {
                 var dbContext1 = scope1.ServiceProvider.GetRequiredService<EnumerationDbContext>();
                 dbContext1.Database.EnsureCreated();
@@ -28,6 +23,7 @@ namespace EntityFrameworkWithDDDPractices.Tests.Enumerations
                 var busyDriver = new Driver
                 {
                     Name = "The Busy one",
+                    Custom = "Value",
                     Status = DriverStatus.Busy
                 };
                 var availableDriver = new Driver
@@ -37,7 +33,7 @@ namespace EntityFrameworkWithDDDPractices.Tests.Enumerations
                 };
                 dbContext1.AddRange(busyDriver, availableDriver);
                 dbContext1.SaveChanges();
-                using (var scope2 = _serviceProvider.CreateScope())
+                using (var scope2 = serviceProvider.CreateScope())
                 {
                     var dbContext2 = scope2.ServiceProvider.GetRequiredService<EnumerationDbContext>();
                     dbContext2.DriverStatuses.Count().ShouldBe(originalStatusCount);

@@ -57,6 +57,8 @@ namespace EntityFrameworkWithDDDPractices.Tests.Enumerations
 
         public string Name { get; set; }
 
+        public string Custom { get; set; }
+
         public DriverStatus Status { get; set; }
     }
 
@@ -79,9 +81,13 @@ namespace EntityFrameworkWithDDDPractices.Tests.Enumerations
         {
             services.AddDbContext<EnumerationDbContext>(options =>
             {
-                const string connectionString = "Data Source=InMemorySample;Mode=Memory;Cache=Shared";
+                const string connectionString = "Data Source=InMemoryEnumerationSample;Mode=Memory;Cache=Shared";
                 var masterConnection = new SqliteConnection(connectionString);
                 masterConnection.Open();
+                masterConnection.Disposed += (_, _) =>
+                 {
+
+                 };
                 options.UseSqlite(masterConnection);
             });
             return services;
