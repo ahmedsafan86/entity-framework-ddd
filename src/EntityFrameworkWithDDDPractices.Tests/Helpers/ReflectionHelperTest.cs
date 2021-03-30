@@ -1,5 +1,6 @@
 using Shouldly;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -13,6 +14,7 @@ namespace EntityFrameworkWithDDDPractices.Tests.Helpers
         [InlineData(typeof(IFace), false)]
         [InlineData(typeof(Implementation), true)]
         [InlineData(typeof(GenericChild), true)]
+        [InlineData(typeof(List<int>), true)]
         public void IsConcrete_WorksAsExpected(Type type, bool expectedResult)
         {
             type.IsConcrete().ShouldBe(expectedResult, type.Name);

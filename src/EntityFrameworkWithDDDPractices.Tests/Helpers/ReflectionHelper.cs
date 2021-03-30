@@ -16,7 +16,7 @@ namespace EntityFrameworkWithDDDPractices.Tests.Helpers
 
         public static bool IsConcrete(this Type type)
         {
-            return type.IsClass && !type.IsAbstract && (!type.IsGenericType || type.IsConstructedGenericType);
+            return type.IsClass && !type.IsAbstract && !type.ContainsGenericParameters;
         }
 
         internal static IReadOnlyCollection<(Type concreteType, Type genericType)> GetAllConcreteTypesImplementingGenericInterface(Type genericType)
